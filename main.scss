@@ -1,0 +1,61 @@
+// import is use to get or add files
+@import'./variable';
+
+body{
+    background:$primary-color;
+    color:$text-color;
+}
+@function weight($weight-name){
+@return map-get($font-weight, $weight-name )
+}
+@mixin flexcenter ($direction) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+
+}
+@mixin color-theme($light-theme : true){
+  @if $light-theme {
+    background: lighten($primary-color, 100%);
+    color: darken($text-color,100%)
+  }
+}
+@mixin mobile{
+  @media (max-width:$mobile){
+    @content;
+  }
+}
+.main{
+  @include flexcenter(row);
+  width: 80%;
+  margin: 0 auto;
+  
+ 
+                        //   &show attachment to parent
+ #{&}-para1{
+ 
+               // //    by using vaiable       
+                //     font-weight: map-get($font-weight, bold );
+
+                // by using function
+font-weight: weight(medium);
+   
+   &:hover{
+       color: pink;
+   }  }
+   @include mobile{
+     flex-direction: column;          
+   }
+   #{&}-para2{
+     @extend.main-para1;             //extension the element we extend can inherite
+                                    //  all the design from selective element
+     &:hover{
+      color: crimson;
+     }
+   }
+    
+}  
+.light{
+  @include color-theme ($light-theme:true);
+}
